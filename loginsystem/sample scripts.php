@@ -7,7 +7,7 @@
  * Time: 10:15 AM
  * Main Index page
  */
-echo "Index.php";
+
 //Require Init on all pages
 require_once('core/init.php');
 
