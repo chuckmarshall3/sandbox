@@ -9,7 +9,8 @@
 
 require_once('core/init.php');
 
-if(Input::exists()){
+//Check for token and form post
+if(Input::exists() && Token::check(Input::get('token'))){
 
     $validate = new Validate();
     $validation = $validate->check($_POST, array(
@@ -43,7 +44,8 @@ if(Input::exists()){
     ));
 
     if($validation->passed()){
-        echo "Passed";
+        Session::flash('success', 'You Registered Successfully!');
+        header('Location: index.php');
     }else{
         foreach($validation->errors() as $error){
             echo $error."<br>";
@@ -82,5 +84,6 @@ if(Input::exists()){
         <input type="text" name="lname" id="lname" value="<?=escape(Input::get('lname'))?>" autocomplete="off">
     </div>
 
+    <input type="hidden" name="token" value="<?=Token::generate()?>">
     <input type="submit" value="Register">
 </form>

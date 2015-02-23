@@ -11,6 +11,10 @@ echo "Index.php";
 //Require Init on all pages
 require_once('core/init.php');
 
+if(Session::exists('success')){
+    echo Session::flash('success');
+}
+
 /*************************************************************/
 //echo Config::get('mysql/host');  //Get local host string 127.0.0.1
 
