@@ -29,6 +29,7 @@ class Session{
         }
     }
 
+    //Flash  Notification
     public static function flash($name, $string = ''){
 
         if(self::exists($name)){

@@ -108,6 +108,7 @@ class DB {
 
     public function insert($table, $fields = array()){
 
+        //print_r($fields);
         $keys = array_keys($fields);
         $values = '';
         $x = 1;
@@ -123,7 +124,7 @@ class DB {
 
         }
 
-        $sql="INSERT INTO users (`". implode('`, `', $keys) ."`) VALUES ({$values})";
+        $sql="INSERT INTO {$table} (`". implode('`, `', $keys) ."`) VALUES ({$values})";
 
 
         if(!$this->query($sql, $fields)->error()){

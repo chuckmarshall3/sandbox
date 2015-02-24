@@ -7,7 +7,7 @@
  * Used to register a user
  */
 
-require_once('core/init.php');
+require_once('../core/init.php');
 
 //Check for token and form post
 if(Input::exists() && Token::check(Input::get('token'))){
@@ -44,8 +44,28 @@ if(Input::exists() && Token::check(Input::get('token'))){
     ));
 
     if($validation->passed()){
-        Session::flash('success', 'You Registered Successfully!');
-        header('Location: index.php');
+
+        $user = new User();
+        $salt = Hash::salt(32);
+
+        try{
+            $user->create(array(
+                'username' =>Input::get('username'),
+                'password' =>Hash::make(Input::get('password'), $salt),
+                'salt' => $salt,
+                'fname' => Input::get('fname'),
+                'lname' =>Input::get('lname'),
+                'createddate' =>date('Y-m-d H:i:s'),
+                'group' =>1,
+            ));
+
+            Session::flash('success', 'Registration Successfully!');
+            Redirect::to('index.php');
+        }catch(Exception $e){
+            die($e->getMessage);
+        }
+
+
     }else{
         foreach($validation->errors() as $error){
             echo $error."<br>";
@@ -65,12 +85,12 @@ if(Input::exists() && Token::check(Input::get('token'))){
     </div>
 
     <div class="field">
-        <label for="password">Choose a password</label>
+        <label for="password">Enter New Password</label>
         <input type="password" name="password" id="password" value="" autocomplete="off">
     </div>
 
     <div class="field">
-        <label for="password_again">Enter your password again</label>
+        <label for="password_again">Re-Type Password</label>
         <input type="password" name="password_again" id="password_again" value="" autocomplete="off">
     </div>
 

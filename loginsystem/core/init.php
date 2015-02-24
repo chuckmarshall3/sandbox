@@ -37,8 +37,8 @@ $GLOBALS['config'] = array(
 //Autoload required Class File
 spl_autoload_register( function($class){
 
-    require_once 'classes/'.$class.'.php';
+    require_once '../models/'.$class.'.php';
 });
 
 //Includes Sanitize Function
-require_once('functions/sanitize.php');
+require_once('../functions/sanitize.php');
