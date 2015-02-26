@@ -23,7 +23,11 @@ if(Input::exists() && Token::check(Input::get('token'))) {
     if($validation->passed()){
 
         $user = new User();
-        $login = $user->login(Input::get('username'), Input::get(('password')));
+
+
+
+        $remember = (Input::get('remember')==='on') ? true : false;
+        $login = $user->login(Input::get('username'), Input::get(('password')), $remember);
 
         if($login){
            Redirect::to('index.php');
@@ -58,6 +62,10 @@ if(Input::exists() && Token::check(Input::get('token'))) {
                 <label for="username">Password</label>
 				<input type="password" name="password" autocomplete="off">
 			</div>
+            <div>
+
+                <label>Remember Me <input type="checkbox" name="remember" id="remember"></label>
+            </div>
 			<div>
 				<input type="submit" value="Login">
 			</div>

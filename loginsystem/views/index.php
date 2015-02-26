@@ -7,7 +7,7 @@
  * Time: 10:15 AM
  * Main Index page
  */
-echo "Index.php";
+echo "Index.php<br>";
 //Require Init on all pages
 require_once('../core/init.php');
 
@@ -15,69 +15,27 @@ if(Session::exists('success')){
     echo Session::flash('success');
 }
 
-echo Session::get(Config::get('session/session_name'));
-
-/*************************************************************/
-//echo Config::get('mysql/host');  //Get local host string 127.0.0.1
+$user = new User();
 
 
-//$users = DB::getInstance()->query('SELECT username FROM users');
-//
-//if($users->count()){
-//    foreach($users as $user){
-//        echo $user->username;
-//    }
-//}
+if($user->isLoggedIn()){
+    echo $user->data()->username.' is logged in';
 
 
-/*************************************************************/
-//Used this to retrieve data using  a full sql query
-//$user = DB::getInstance()->query("SELECT username FROM users WHERE username=?", array('alex'));
-//$user = DB::getInstance()->query("SELECT username FROM users");
-/*
-    if(!$user->count()){
-        echo 'No User';
+?>
 
-    }else{
-        foreach($user->results() as $user){
-            echo $user->username, '<br>';
-        }
-    }
-*/
+<p> Welcome <a href="#"><?=$user->data()->username?></a>! </p>
+
+    <ul>
+        <li><a href="logout.php">Log Out</a> </li>
+        <li><a href="update.php">Update Profile</a> </li>
+    </ul>
 
 
-/*************************************************************/
-//Use this to retrieve data using simpler get and action method
-//$user = DB::getInstance()->get('users', array('username', '=', 'alex'));
+<?
+}else{?>
 
-/*
-    if(!$user->count()){
-        echo 'No User';
+    <p>You need to <a href="login.php">Log in</a> or <a href="register.php">Register</a></p>
 
-    }else{
+<?}
 
-       echo $user->firstrow()->username; //Outputs first row only
-
-    }
-*/
-
-
-/*************************************************************/
-//Use this to insert data into DB
-/*
-$user = DB::getInstance()->insert('users', array(
-        'username' => 'Dale',
-        'password' => 'password',
-        'salt' => 'salt'
-    ));
-*/
-
-/*************************************************************/
-//Use this to update data into DB
-/*
-$user = DB::getInstance()->update('users', 3, array(
-    'username' => 'Dale Barrett',
-    'password' => 'newpassword',
-    'salt' => 'salts'
-));
-*/
