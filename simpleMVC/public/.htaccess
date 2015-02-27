@@ -1,7 +1,7 @@
 Options -MultiViews
-RewriteEngine ON
+RewriteEngine On
 
-RewriteBase /sandbox/simpleMVC/public/
+RewriteBase /sandbox/simpleMVC/public
 
 RewriteCond %{REQUEST_FILENAME) !-d
 RewriteCond %{REQUEST_FILENAME) !-f
